@@ -25,4 +25,5 @@ dependencyResolutionManagement {
 rootProject.name = "MyProductCatalogApp"
 include(":app")
 include(":core:domain")
+include(":core:ui")
 include(":core:data")

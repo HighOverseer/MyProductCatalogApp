@@ -10,7 +10,7 @@ kotlin {
     // which platforms this KMP module supports.
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
     android {
-        namespace = "com.fajar.myproductcatalogapp.data"
+        namespace = "com.fajar.myproductcatalogapp.core.data"
         compileSdk {
             version = release(36) {
                 minorApiLevel = 1

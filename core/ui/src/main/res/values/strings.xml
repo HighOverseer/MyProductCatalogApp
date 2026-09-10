@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="telah_terjadi_kesalahan_mohon_coba_lagi">Telah terjadi kesalahan, mohon coba lagi..</string>
+    <string name="terdapat_kesalahan_coba_periksa_konektivitas_anda">Terdapat kesalahan, coba periksa konektivitas anda..</string>
+    <string name="maaf_sepertinya_ada_kesalahan_coba_periksa_koneksi_anda">Maaf sepertinya ada kesalahan, coba periksa koneksi anda..</string>
+    <string name="terjadi_kesalahan_periska_konektivitas_anda_atau_coba_lagi_nanti">Terjadi kesalahan, periksa konektivitas anda atau coba lagi nanti..</string>
+    <string name="telah_terjadi_kesalahan_mohon_coba_lagi_nanti">Telah terjadi kesalahan mohon coba lagi nanti..</string>
+    <string name="maaf_sepertinya_server_sedang_sibuk_coba_lagi_nanti">Maaf, sepertinya server sedang sibuk, coba lagi nanti..</string>
+    <string name="sesi_tidak_valid_mohon_coba_lagi">Sesi tidak valid, mohon coba lagi..</string>
+</resources>
