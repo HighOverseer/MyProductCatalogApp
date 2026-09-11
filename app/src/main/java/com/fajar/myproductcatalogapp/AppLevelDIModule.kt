@@ -3,7 +3,7 @@ package com.fajar.myproductcatalogapp
 import com.fajar.myproductcatalogapp.core.data.contract.AppConfiguration
 import org.koin.dsl.module
 
-internal val appLevelModule = module {
+internal val appLevelDIModule = module {
     single<AppConfiguration> {
         AndroidAppConfiguration()
     }
