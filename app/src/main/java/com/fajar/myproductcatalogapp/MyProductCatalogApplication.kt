@@ -3,6 +3,7 @@ package com.fajar.myproductcatalogapp
 import android.app.Application
 import com.fajar.myproductcatalogapp.core.common.getCoreCommonDIModules
 import com.fajar.myproductcatalogapp.core.data.getCoreDataDIModules
+import com.fajar.myproductcatalogapp.product_previews.data.getProductPreviewsDataDIModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -15,6 +16,7 @@ class MyProductCatalogApplication : Application() {
             modules(appLevelDIModule)
             modules(getCoreCommonDIModules())
             modules(getCoreDataDIModules())
+            modules(getProductPreviewsDataDIModules())
         }
     }
 }
