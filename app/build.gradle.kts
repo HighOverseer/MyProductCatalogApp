@@ -1,3 +1,6 @@
+import java.util.Properties
+import kotlin.apply
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -11,6 +14,16 @@ android {
         }
     }
 
+    fun getLocalProperties(): Properties {
+        return Properties().apply {
+            val localPropertiesFile = rootProject.file("local.properties")
+            if(localPropertiesFile.exists()){
+                this.load(localPropertiesFile.inputStream())
+            }
+        }
+
+    }
+
     defaultConfig {
         applicationId = "com.fajar.myproductcatalogapp"
         minSdk = 24
@@ -19,6 +32,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val localProperties = getLocalProperties()
+        val baseUrl = localProperties.getProperty("BASE_URL", "")
+        buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
     }
 
     buildTypes {
@@ -34,10 +51,12 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
 dependencies {
+    implementation(project(":core:data"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
@@ -53,4 +72,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+
+    // Koin
+    implementation(libs.coinAndroid)
 }
