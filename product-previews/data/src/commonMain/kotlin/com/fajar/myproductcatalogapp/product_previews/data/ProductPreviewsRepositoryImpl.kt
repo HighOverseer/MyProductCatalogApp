@@ -10,7 +10,16 @@ internal class ProductPreviewsRepositoryImpl(
     private val remoteDataSource: ProductPreviewsRemoteDataSource
 ) : ProductPreviewsRepository {
 
-    override suspend fun getAllProductPreviews(): Result<List<ProductPreviewItem>, DataError> {
-        return remoteDataSource.getAllProductPreviews()
+    override suspend fun getProductPreviews(
+        query: String,
+        pageSize: Int,
+        pageOffset: Int
+    ): Result<List<ProductPreviewItem>, DataError> {
+        return remoteDataSource
+            .getProductPreviews(
+                query = query,
+                pageSize = pageSize,
+                pageOffset = pageOffset
+            )
     }
 }

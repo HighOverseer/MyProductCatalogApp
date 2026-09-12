@@ -4,5 +4,9 @@ import com.fajar.myproductcatalogapp.core.domain.model.DataError
 import com.fajar.myproductcatalogapp.core.domain.model.Result
 
 interface ProductPreviewsRepository {
-    suspend fun getAllProductPreviews(): Result<List<ProductPreviewItem>, DataError>
+    suspend fun getProductPreviews(
+        query: String = "",
+        pageSize: Int,
+        pageOffset: Int
+    ): Result<List<ProductPreviewItem>, DataError>
 }

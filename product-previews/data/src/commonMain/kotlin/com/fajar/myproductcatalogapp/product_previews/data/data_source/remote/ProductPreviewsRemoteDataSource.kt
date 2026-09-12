@@ -5,5 +5,9 @@ import com.fajar.myproductcatalogapp.core.domain.model.Result
 import com.fajar.myproductcatalogapp.product_previews.domain.ProductPreviewItem
 
 internal interface ProductPreviewsRemoteDataSource {
-    suspend fun getAllProductPreviews(): Result<List<ProductPreviewItem>, DataError>
+    suspend fun getProductPreviews(
+        query: String,
+        pageSize: Int,
+        pageOffset: Int,
+    ): Result<List<ProductPreviewItem>, DataError>
 }

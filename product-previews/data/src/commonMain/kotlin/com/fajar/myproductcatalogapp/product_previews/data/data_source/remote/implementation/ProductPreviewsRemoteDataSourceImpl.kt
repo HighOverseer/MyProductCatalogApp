@@ -14,11 +14,25 @@ internal class ProductPreviewsRemoteDataSourceImpl(
     private val dispatcherProvider: DispatcherProvider,
     private val mapperToDomain: MapperToDomain
 ) : ProductPreviewsRemoteDataSource {
-    override suspend fun getAllProductPreviews(): Result<List<ProductPreviewItem>, DataError> {
-        return withContext(dispatcherProvider.default) {
+
+    override suspend fun getProductPreviews(
+        query: String,
+        pageSize: Int,
+        pageOffset: Int
+    ): Result<List<ProductPreviewItem>, DataError> =
+        withContext(dispatcherProvider.default) {
             callApiFromNetwork(
                 execute = {
-                    apiService.getAllProductPreviews()
+                    if (query.isBlank()) {
+                        apiService.getRandomProductPreviews(
+                            pageSize = pageSize,
+                            pageOffset = pageOffset
+                        )
+                    } else apiService.getProductPreviewsByQuery(
+                        query = query,
+                        pageSize = pageSize,
+                        pageOffset = pageOffset
+                    )
                 },
                 mapResponseToResultData = { responseDto ->
                     responseDto.products.mapNotNull(
@@ -27,5 +41,4 @@ internal class ProductPreviewsRemoteDataSourceImpl(
                 },
             )
         }
-    }
 }
