@@ -52,8 +52,8 @@ internal class ListProductPreviewsViewModel(
                 }
             ).flow
         }
-        .cachedIn(viewModelScope)
         .flowOn(dispatcherProvider.default)
+        .cachedIn(viewModelScope)
 
     fun onSearchQueryChange(newQuery: String) {
         _searchBarQuery.update { newQuery }

@@ -10,6 +10,7 @@ import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 
+internal expect fun getUnknownHostExceptionKClass(): Any
 val mapStatusCodeToError2 = hashMapOf<Int, DataError>(
     HttpStatusCode.BadRequest.value to RootNetworkError.BAD_REQUEST,
     HttpStatusCode.Unauthorized.value to RootNetworkError.UNAUTHORIZED,
@@ -25,6 +26,7 @@ val mapIOExceptionToError = hashMapOf(
     SocketTimeoutException::class to RootNetworkError.REQUEST_TIMEOUT,
     ConnectTimeoutException::class to RootNetworkError.NO_CONNECTIVITY_OR_SERVER_UNREACHABLE,
     HttpRequestTimeoutException::class to RootNetworkError.REQUEST_TIMEOUT,
+    getUnknownHostExceptionKClass() to RootNetworkError.NO_CONNECTIVITY_OR_SERVER_UNREACHABLE
 )
 
 

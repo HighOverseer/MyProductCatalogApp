@@ -4,10 +4,11 @@ import androidx.compose.runtime.Immutable
 import kotlin.time.Clock
 
 @Immutable
-data class ProductPreviewItemDUI(
+internal data class ProductPreviewItemDUI(
     val id: Long = Clock.System.now().toEpochMilliseconds(),
     val title: String = "-",
     val thumbnailImageUrl: String = "-",
-    val displayPrice: String = "$-",
+    val displayPriceBeforeDiscount: String = "$-",
+    val displayPriceAfterDiscount: String = "$-",
     val displayDiscountPercentage: String = "-"
 )

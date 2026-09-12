@@ -1,11 +1,13 @@
 package com.fajar.myproductcatalogapp.product_previews.presentation.utils
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.fajar.myproductcatalogapp.product_previews.presentation.pagination.ExceptionWithUIText
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.flowOf
@@ -26,6 +28,9 @@ internal fun <T : Any> rememberDummyPagingItems(
 
 internal val <T : Any> LazyPagingItems<T>.isInitialLoadError
     get() = loadState.refresh is LoadState.Error
+
+internal val <T : Any> LazyPagingItems<T>.isPaginatingLoadError
+    get() = loadState.append is LoadState.Error
 internal val <T : Any> LazyPagingItems<T>.isInitialLoadFinished
     get() = loadState.refresh is LoadState.NotLoading
 internal val <T : Any> LazyPagingItems<T>.isListEmpty
@@ -34,3 +39,31 @@ internal val <T : Any> LazyPagingItems<T>.isRefreshing
     get() = loadState.refresh is LoadState.Loading
 internal val <T : Any> LazyPagingItems<T>.isPaginating
     get() = loadState.append is LoadState.Loading
+
+internal val <T : Any> LazyPagingItems<T>.initialLoadErrorMessage
+    @Composable get() = (loadState.refresh as? LoadState.Error)
+        ?.error?.let { error ->
+            if (error is ExceptionWithUIText) {
+                error.text.getValue()
+            } else error.message
+        }
+
+internal val <T : Any> LazyPagingItems<T>.paginateLoadErrorMessage
+    @Composable get() = (loadState.append as? LoadState.Error)
+        ?.error?.let { error ->
+            if (error is ExceptionWithUIText) {
+                error.text.getValue()
+            } else error.message
+        }
+
+
+internal fun <T : Any> LazyPagingItems<T>.getPaginateLoadErrorMessage(
+    context: Context
+): String? {
+    return (loadState.append as? LoadState.Error)
+        ?.error?.let { error ->
+            if (error is ExceptionWithUIText) {
+                error.text.getValue(context)
+            } else error.message
+        }
+}

@@ -1,6 +1,8 @@
 package com.fajar.myproductcatalogapp.product_previews.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,11 +19,13 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -72,12 +76,18 @@ private fun ListProductPreviewsScreen(
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
+    val focusManager = LocalFocusManager.current
     Scaffold(
         containerColor = Color.White,
         modifier = modifier
             .fillMaxSize()
             .background(Color.White)
-            .nestedScroll(scrollBehavior.nestedScrollConnection),
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .clickable(
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() },
+                onClick = { focusManager.clearFocus() }
+            ),
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors().copy(
@@ -130,7 +140,10 @@ private fun ListProductPreviewsScreen(
         ) {
             ListProductPreviewsMainContent(
                 pagingItems = pagingItems,
-                onItemClicked = onItemClicked,
+                onItemClicked = {
+                    onItemClicked(it)
+                    focusManager.clearFocus()
+                },
                 searchQueryProvider = searchQueryProvider,
                 onSearchQueryChange = onSearchQueryChange,
             )
@@ -151,7 +164,7 @@ private fun ListProductPreviewsScreenPreview() {
                         id = it.toLong(),
                         title = "Headset Nexus A1",
                         thumbnailImageUrl = "image.com",
-                        displayPrice = "$10.00",
+                        displayPriceBeforeDiscount = "$10.00",
                         displayDiscountPercentage = "10%"
                     )
                 }.toImmutableList()

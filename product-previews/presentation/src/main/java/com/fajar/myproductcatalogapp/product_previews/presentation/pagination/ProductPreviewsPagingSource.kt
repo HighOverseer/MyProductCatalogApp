@@ -24,8 +24,8 @@ internal class ProductPreviewsPagingSource(
     override fun getRefreshKey(state: PagingState<Int, ProductPreviewItemDUI>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.let { page ->
-                page.prevKey?.plus(state.config.pageSize)
-                    ?: page.nextKey?.minus(state.config.pageSize)
+                page.prevKey?.plus(page.data.size)
+                    ?: page.nextKey?.minus(page.data.size)
             }
         }
     }

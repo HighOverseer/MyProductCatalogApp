@@ -64,6 +64,6 @@ internal class ProductPreviewsAPIServiceImpl(
         private const val LIMIT_QUERY_PARAM_KEY = "limit"
         private const val SKIP_QUERY_PARAM_KEY = "skip"
         private const val SEARCH_QUERY_PARAM_KEY = "q"
-        private const val SEARCH_PATH_KEY = "search"
+        private const val SEARCH_PATH_KEY = "/products/search"
     }
 }
