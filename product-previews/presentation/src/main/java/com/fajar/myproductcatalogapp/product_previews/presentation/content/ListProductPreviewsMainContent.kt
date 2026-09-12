@@ -1,6 +1,5 @@
 package com.fajar.myproductcatalogapp.product_previews.presentation.content
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,15 +27,12 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
 import com.fajar.myproductcatalogapp.core.ui.R
@@ -48,14 +44,16 @@ import com.fajar.myproductcatalogapp.core.ui.theme.Orange90
 import com.fajar.myproductcatalogapp.product_previews.presentation.components.ProductPreviewItemCard
 import com.fajar.myproductcatalogapp.product_previews.presentation.components.ShimmeringProductPreviewItemCard
 import com.fajar.myproductcatalogapp.product_previews.presentation.model.ProductPreviewItemDUI
-import com.fajar.myproductcatalogapp.product_previews.presentation.utils.getPaginateLoadErrorMessage
+import com.fajar.myproductcatalogapp.product_previews.presentation.utils.appendErrorMessage
 import com.fajar.myproductcatalogapp.product_previews.presentation.utils.initialLoadErrorMessage
+import com.fajar.myproductcatalogapp.product_previews.presentation.utils.isAppendLoadError
+import com.fajar.myproductcatalogapp.product_previews.presentation.utils.isAppending
 import com.fajar.myproductcatalogapp.product_previews.presentation.utils.isInitialLoadError
 import com.fajar.myproductcatalogapp.product_previews.presentation.utils.isListEmpty
-import com.fajar.myproductcatalogapp.product_previews.presentation.utils.isPaginating
-import com.fajar.myproductcatalogapp.product_previews.presentation.utils.isPaginatingLoadError
+import com.fajar.myproductcatalogapp.product_previews.presentation.utils.isPrependLoadError
+import com.fajar.myproductcatalogapp.product_previews.presentation.utils.isPrepending
 import com.fajar.myproductcatalogapp.product_previews.presentation.utils.isRefreshing
-import com.fajar.myproductcatalogapp.product_previews.presentation.utils.paginateLoadErrorMessage
+import com.fajar.myproductcatalogapp.product_previews.presentation.utils.prependErrorMessage
 import com.fajar.myproductcatalogapp.product_previews.presentation.utils.rememberDummyPagingItems
 import com.fajar.myproductcatalogapp.product_previews.presentation.R as ThisR
 
@@ -69,25 +67,6 @@ internal fun ListProductPreviewsMainContent(
 ) {
     val lazyGridState = rememberLazyGridState()
     val pullToRefreshState = rememberPullToRefreshState()
-    val context = LocalContext.current
-
-    val defaultErrorMessage = stringResource(R.string.an_error_occurred_please_try_again)
-    LaunchedEffect(pagingItems) {
-        val refreshState = pagingItems.loadState.refresh
-        val appendState = pagingItems.loadState.append
-
-        if (refreshState is LoadState.Error || appendState is LoadState.Error) {
-            val errorMessage = pagingItems
-                .getPaginateLoadErrorMessage(context)
-                ?: defaultErrorMessage
-
-            Toast.makeText(
-                context,
-                errorMessage,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
 
     Column(
         modifier = modifier.fillMaxSize()
@@ -174,7 +153,21 @@ private fun ListItemsSection(
     ) {
         if (pagingItems.isRefreshing)
             items(10) { ShimmeringProductPreviewItemCard() }
-        else
+        else {
+            if (pagingItems.isPrepending)
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    CurrentlyLoadingSection()
+                }
+            else if (pagingItems.isPrependLoadError)
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    RetryLoadingSection(
+                        errorMessage = pagingItems.prependErrorMessage
+                            ?: stringResource(R.string.an_error_occurred_please_try_again),
+                        onRetry = pagingItems::retry
+                    )
+                }
+
+
             items(
                 count = pagingItems.itemCount,
                 key = pagingItems.itemKey { item -> item.id }
@@ -188,48 +181,68 @@ private fun ListItemsSection(
                 }
             }
 
-        if (pagingItems.isPaginating)
-            item(span = { GridItemSpan(maxLineSpan) }) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 16.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .size(24.dp),
-                        trackColor = Orange90,
-                        strokeWidth = 5.dp,
-                        color = Green60,
-                        gapSize = (-1).dp
-                    )
+            if (pagingItems.isAppending)
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    CurrentlyLoadingSection()
                 }
-            }
-        else if (pagingItems.isPaginatingLoadError)
-            item(span = { GridItemSpan(maxLineSpan) }) {
-                Column(
-                    Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .padding(horizontal = 32.dp, vertical = 16.dp),
-                        text = pagingItems.paginateLoadErrorMessage
+            else if (pagingItems.isAppendLoadError)
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    RetryLoadingSection(
+                        errorMessage = pagingItems.appendErrorMessage
                             ?: stringResource(R.string.an_error_occurred_please_try_again),
-                        style = MaterialTheme.typography.bodySmall,
-                        textAlign = TextAlign.Center
-                    )
-                    Spacer(Modifier.height(8.dp))
-                    PrimaryButton(
-                        modifier = Modifier
-                            .widthIn(min = 120.dp),
-                        text = stringResource(ThisR.string.retry),
-                        onClick = { pagingItems.retry() },
-                        contentPadding = PaddingValues(vertical = 0.dp)
+                        onRetry = pagingItems::retry
                     )
                 }
-            }
+        }
+
+
+    }
+}
+
+@Composable
+private fun CurrentlyLoadingSection() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .size(24.dp),
+            trackColor = Orange90,
+            strokeWidth = 5.dp,
+            color = Green60,
+            gapSize = (-1).dp
+        )
+    }
+}
+
+@Composable
+private fun RetryLoadingSection(
+    modifier: Modifier = Modifier,
+    errorMessage: String = "",
+    onRetry: () -> Unit = { },
+) {
+    Column(
+        modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            modifier = Modifier
+                .padding(horizontal = 32.dp, vertical = 16.dp),
+            text = errorMessage,
+            style = MaterialTheme.typography.bodySmall,
+            textAlign = TextAlign.Center
+        )
+        Spacer(Modifier.height(8.dp))
+        PrimaryButton(
+            modifier = Modifier
+                .widthIn(min = 120.dp),
+            text = stringResource(ThisR.string.retry),
+            onClick = onRetry,
+            contentPadding = PaddingValues(vertical = 0.dp)
+        )
     }
 }
 

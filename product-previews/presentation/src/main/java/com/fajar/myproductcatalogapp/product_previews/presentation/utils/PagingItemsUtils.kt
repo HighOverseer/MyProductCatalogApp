@@ -1,6 +1,5 @@
 package com.fajar.myproductcatalogapp.product_previews.presentation.utils
 
-import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.paging.LoadState
@@ -28,17 +27,22 @@ internal fun <T : Any> rememberDummyPagingItems(
 
 internal val <T : Any> LazyPagingItems<T>.isInitialLoadError
     get() = loadState.refresh is LoadState.Error
-
-internal val <T : Any> LazyPagingItems<T>.isPaginatingLoadError
+internal val <T : Any> LazyPagingItems<T>.isAppendLoadError
     get() = loadState.append is LoadState.Error
+
+internal val <T : Any> LazyPagingItems<T>.isPrependLoadError
+    get() = loadState.prepend is LoadState.Error
 internal val <T : Any> LazyPagingItems<T>.isInitialLoadFinished
     get() = loadState.refresh is LoadState.NotLoading
 internal val <T : Any> LazyPagingItems<T>.isListEmpty
     get() = itemCount == 0 && isInitialLoadFinished
 internal val <T : Any> LazyPagingItems<T>.isRefreshing
     get() = loadState.refresh is LoadState.Loading
-internal val <T : Any> LazyPagingItems<T>.isPaginating
+internal val <T : Any> LazyPagingItems<T>.isAppending
     get() = loadState.append is LoadState.Loading
+
+internal val <T : Any> LazyPagingItems<T>.isPrepending
+    get() = loadState.prepend is LoadState.Loading
 
 internal val <T : Any> LazyPagingItems<T>.initialLoadErrorMessage
     @Composable get() = (loadState.refresh as? LoadState.Error)
@@ -48,7 +52,7 @@ internal val <T : Any> LazyPagingItems<T>.initialLoadErrorMessage
             } else error.message
         }
 
-internal val <T : Any> LazyPagingItems<T>.paginateLoadErrorMessage
+internal val <T : Any> LazyPagingItems<T>.appendErrorMessage
     @Composable get() = (loadState.append as? LoadState.Error)
         ?.error?.let { error ->
             if (error is ExceptionWithUIText) {
@@ -56,14 +60,10 @@ internal val <T : Any> LazyPagingItems<T>.paginateLoadErrorMessage
             } else error.message
         }
 
-
-internal fun <T : Any> LazyPagingItems<T>.getPaginateLoadErrorMessage(
-    context: Context
-): String? {
-    return (loadState.append as? LoadState.Error)
+internal val <T : Any> LazyPagingItems<T>.prependErrorMessage
+    @Composable get() = (loadState.prepend as? LoadState.Error)
         ?.error?.let { error ->
             if (error is ExceptionWithUIText) {
-                error.text.getValue(context)
+                error.text.getValue()
             } else error.message
         }
-}

@@ -39,6 +39,7 @@ internal class ListProductPreviewsViewModel(
                     pageSize = PAGE_SIZE,
                     initialLoadSize = INITIAL_LOAD_SIZE,
                     prefetchDistance = PREFETCH_DISTANCE,
+                    maxSize = MAX_SIZE,
                     enablePlaceholders = false
                 ),
                 pagingSourceFactory = {
@@ -62,6 +63,7 @@ internal class ListProductPreviewsViewModel(
     companion object {
         private val SEARCH_QUERY_DEBOUNCE_TIMEOUT = 0.5.seconds
         private const val PAGE_SIZE = 10
+        private const val MAX_SIZE = 10 * PAGE_SIZE
         private const val INITIAL_LOAD_SIZE = 20
         private const val PREFETCH_DISTANCE = 4
     }
