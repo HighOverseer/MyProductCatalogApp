@@ -19,6 +19,8 @@ coin_version = "4.1.1"
 ktorClientLogging = "3.3.3"
 ktor = "3.3.3"
 paging = "3.3.0"
+coilCompose = "3.6.2"
+immutable = "0.5.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -60,6 +62,13 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 # Paging3
 androidx-paging-common = { module = "androidx.paging:paging-common", version.ref = "paging" }
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging" }
+
+# Coil
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
+
+# Immutable Collection
+kotlinx-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "immutable" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

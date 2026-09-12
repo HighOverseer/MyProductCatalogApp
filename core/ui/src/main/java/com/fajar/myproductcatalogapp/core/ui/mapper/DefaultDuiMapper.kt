@@ -10,15 +10,15 @@ import com.fajar.myproductcatalogapp.core.ui.model.UIText
 
 open class DefaultErrorMapper {
     private val mapNetworkErrorToStringResource = hashMapOf(
-        RootNetworkError.UNEXPECTED_ERROR to R.string.telah_terjadi_kesalahan_mohon_coba_lagi,
-        RootNetworkError.CONNECTIVITY_UNAVAILABLE to R.string.terdapat_kesalahan_coba_periksa_konektivitas_anda,
-        RootNetworkError.NO_CONNECTIVITY_OR_SERVER_UNREACHABLE to R.string.maaf_sepertinya_ada_kesalahan_coba_periksa_koneksi_anda,
-        RootNetworkError.REQUEST_TIMEOUT to R.string.terjadi_kesalahan_periska_konektivitas_anda_atau_coba_lagi_nanti,
-        RootNetworkError.BAD_REQUEST to R.string.telah_terjadi_kesalahan_mohon_coba_lagi,
-        RootNetworkError.FORBIDDEN to R.string.sesi_tidak_valid_mohon_coba_lagi,
-        RootNetworkError.UNAUTHORIZED to R.string.sesi_tidak_valid_mohon_coba_lagi,
-        RootNetworkError.SERVER_UNAVAILABLE to R.string.maaf_sepertinya_server_sedang_sibuk_coba_lagi_nanti,
-        RootNetworkError.INTERNAL_SERVER_ERROR to R.string.telah_terjadi_kesalahan_mohon_coba_lagi_nanti
+        RootNetworkError.UNEXPECTED_ERROR to R.string.an_error_occurred_please_try_again,
+        RootNetworkError.CONNECTIVITY_UNAVAILABLE to R.string.an_error_occurred_please_check_your_connectivity,
+        RootNetworkError.NO_CONNECTIVITY_OR_SERVER_UNREACHABLE to R.string.sorry_something_went_wrong_please_check_your_connection,
+        RootNetworkError.REQUEST_TIMEOUT to R.string.an_error_occurred_check_your_connectivity_or_try_again_later,
+        RootNetworkError.BAD_REQUEST to R.string.an_error_occurred_please_try_again,
+        RootNetworkError.FORBIDDEN to R.string.invalid_session_please_try_again,
+        RootNetworkError.UNAUTHORIZED to R.string.invalid_session_please_try_again,
+        RootNetworkError.SERVER_UNAVAILABLE to R.string.sorry_the_server_seems_busy_please_try_again_later,
+        RootNetworkError.INTERNAL_SERVER_ERROR to R.string.an_error_occurred_please_try_again_later
     )
 
     private fun getMapper(error: Error): HashMap<out Error, Int>? {
@@ -37,7 +37,7 @@ open class DefaultErrorMapper {
             error.reason?.let { return UIText.Dynamic(it) }
         }
 
-        val defaultStatic = UIText.Static(R.string.telah_terjadi_kesalahan_mohon_coba_lagi)
+        val defaultStatic = UIText.Static(R.string.an_error_occurred_please_try_again)
         val correspondingMap = getMapper(error)
             ?: return defaultStatic
 

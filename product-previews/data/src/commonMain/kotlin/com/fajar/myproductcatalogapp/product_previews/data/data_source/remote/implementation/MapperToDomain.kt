@@ -20,7 +20,7 @@ internal class MapperToDomain {
         }
 
         return Page(
-            data = items,
+            pagedList = items,
             hasNext = hasNext
         )
     }

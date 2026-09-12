@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="telah_terjadi_kesalahan_mohon_coba_lagi">Telah terjadi kesalahan, mohon coba lagi..</string>
-    <string name="terdapat_kesalahan_coba_periksa_konektivitas_anda">Terdapat kesalahan, coba periksa konektivitas anda..</string>
-    <string name="maaf_sepertinya_ada_kesalahan_coba_periksa_koneksi_anda">Maaf sepertinya ada kesalahan, coba periksa koneksi anda..</string>
-    <string name="terjadi_kesalahan_periska_konektivitas_anda_atau_coba_lagi_nanti">Terjadi kesalahan, periksa konektivitas anda atau coba lagi nanti..</string>
-    <string name="telah_terjadi_kesalahan_mohon_coba_lagi_nanti">Telah terjadi kesalahan mohon coba lagi nanti..</string>
-    <string name="maaf_sepertinya_server_sedang_sibuk_coba_lagi_nanti">Maaf, sepertinya server sedang sibuk, coba lagi nanti..</string>
-    <string name="sesi_tidak_valid_mohon_coba_lagi">Sesi tidak valid, mohon coba lagi..</string>
+    <string name="an_error_occurred_please_try_again">Something went wrong, please try again.</string>
+    <string name="an_error_occurred_please_check_your_connectivity">An error occurred, please check your internet connection.</string>
+    <string name="sorry_something_went_wrong_please_check_your_connection">Sorry, it seems something went wrong. Please check your internet connection.</string>
+    <string name="an_error_occurred_check_your_connectivity_or_try_again_later">An error occurred. Please check your internet connection or try again later.</string>
+    <string name="an_error_occurred_please_try_again_later">An error occurred. Please try again later.</string>
+    <string name="sorry_the_server_seems_busy_please_try_again_later">Sorry, the server seems to be busy. Please try again later.</string>
+    <string name="invalid_session_please_try_again">Your session is invalid. Please try again.</string>
+    <string name="no_data_found">Sorry, no data found..</string>
 </resources>
