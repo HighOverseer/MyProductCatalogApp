@@ -12,14 +12,14 @@ internal class ProductPreviewsAPIServiceImpl(
 ) : ProductPreviewsAPIService, DefaultAPIService() {
 
     override suspend fun getRandomProductPreviews(
-        pageSize: Int,
-        pageOffset: Int
+        limit: Int,
+        skip: Int
     ): ListProductPreviewsDto {
         return httpClient.get {
             url {
                 parameters.appendPaginationQueryParameters(
-                    pageSize = pageSize,
-                    pageOffset = pageOffset
+                    limit = limit,
+                    skip = skip
                 )
             }
         }.getBodyIfNotSuccessThrowHttpException()
@@ -27,8 +27,8 @@ internal class ProductPreviewsAPIServiceImpl(
 
     override suspend fun getProductPreviewsByQuery(
         query: String,
-        pageSize: Int,
-        pageOffset: Int
+        limit: Int,
+        skip: Int
     ): ListProductPreviewsDto {
         return httpClient.get {
             url {
@@ -36,8 +36,8 @@ internal class ProductPreviewsAPIServiceImpl(
                 parameters.apply {
                     append(SEARCH_QUERY_PARAM_KEY, query)
                     appendPaginationQueryParameters(
-                        pageSize = pageSize,
-                        pageOffset = pageOffset
+                        limit = limit,
+                        skip = skip
                     )
                 }
             }
@@ -45,13 +45,9 @@ internal class ProductPreviewsAPIServiceImpl(
     }
 
     private fun ParametersBuilder.appendPaginationQueryParameters(
-        pageSize: Int,
-        pageOffset: Int
+        limit: Int,
+        skip: Int
     ) {
-        @Suppress
-        val limit = pageSize
-        val skip = pageOffset * limit
-
         this.apply {
             append(
                 name = LIMIT_QUERY_PARAM_KEY,

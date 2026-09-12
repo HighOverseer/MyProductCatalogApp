@@ -1,6 +1,7 @@
 package com.fajar.myproductcatalogapp.product_previews.data
 
 import com.fajar.myproductcatalogapp.core.domain.model.DataError
+import com.fajar.myproductcatalogapp.core.domain.model.Page
 import com.fajar.myproductcatalogapp.core.domain.model.Result
 import com.fajar.myproductcatalogapp.product_previews.data.data_source.remote.ProductPreviewsRemoteDataSource
 import com.fajar.myproductcatalogapp.product_previews.domain.ProductPreviewItem
@@ -12,14 +13,14 @@ internal class ProductPreviewsRepositoryImpl(
 
     override suspend fun getProductPreviews(
         query: String,
-        pageSize: Int,
-        pageOffset: Int
-    ): Result<List<ProductPreviewItem>, DataError> {
+        size: Int,
+        offset: Int
+    ): Result<Page<ProductPreviewItem>, DataError> {
         return remoteDataSource
             .getProductPreviews(
                 query = query,
-                pageSize = pageSize,
-                pageOffset = pageOffset
+                size = size,
+                offset = offset
             )
     }
 }

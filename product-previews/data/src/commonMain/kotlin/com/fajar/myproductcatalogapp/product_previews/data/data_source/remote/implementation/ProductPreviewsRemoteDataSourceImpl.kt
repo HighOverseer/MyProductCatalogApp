@@ -3,6 +3,7 @@ package com.fajar.myproductcatalogapp.product_previews.data.data_source.remote.i
 import com.fajar.myproductcatalogapp.core.common.contract.DispatcherProvider
 import com.fajar.myproductcatalogapp.core.data.network.callApiFromNetwork
 import com.fajar.myproductcatalogapp.core.domain.model.DataError
+import com.fajar.myproductcatalogapp.core.domain.model.Page
 import com.fajar.myproductcatalogapp.core.domain.model.Result
 import com.fajar.myproductcatalogapp.product_previews.data.data_source.remote.ProductPreviewsRemoteDataSource
 import com.fajar.myproductcatalogapp.product_previews.data.data_source.remote.implementation.network.ProductPreviewsAPIService
@@ -17,26 +18,26 @@ internal class ProductPreviewsRemoteDataSourceImpl(
 
     override suspend fun getProductPreviews(
         query: String,
-        pageSize: Int,
-        pageOffset: Int
-    ): Result<List<ProductPreviewItem>, DataError> =
+        size: Int,
+        offset: Int
+    ): Result<Page<ProductPreviewItem>, DataError> =
         withContext(dispatcherProvider.default) {
             callApiFromNetwork(
                 execute = {
                     if (query.isBlank()) {
                         apiService.getRandomProductPreviews(
-                            pageSize = pageSize,
-                            pageOffset = pageOffset
+                            limit = size,
+                            skip = offset
                         )
                     } else apiService.getProductPreviewsByQuery(
                         query = query,
-                        pageSize = pageSize,
-                        pageOffset = pageOffset
+                        limit = size,
+                        skip = offset
                     )
                 },
                 mapResponseToResultData = { responseDto ->
-                    responseDto.products.mapNotNull(
-                        transform = mapperToDomain::mapProductPreviewsDtoToDomain
+                    mapperToDomain.mapListProductPreviewsDtoToDomain(
+                        dto = responseDto
                     )
                 },
             )

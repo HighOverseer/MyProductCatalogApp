@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/product-previews" />
             <option value="$PROJECT_DIR$/product-previews/data" />
             <option value="$PROJECT_DIR$/product-previews/domain" />
+            <option value="$PROJECT_DIR$/product-previews/presentation" />
           </set>
         </option>
       </GradleProjectSettings>
