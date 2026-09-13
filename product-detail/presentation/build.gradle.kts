@@ -47,4 +47,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
 
     implementation(libs.kotlinx.immutable)
+
+    implementation(libs.coinCompose)
+    implementation(libs.coinAndroid)
 }

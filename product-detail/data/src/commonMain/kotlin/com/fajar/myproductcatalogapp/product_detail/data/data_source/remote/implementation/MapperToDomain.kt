@@ -1,10 +1,10 @@
 package com.fajar.myproductcatalogapp.product_detail.data.data_source.remote.implementation
 
+import com.fajar.myproductcatalogapp.core.domain.model.Rating
 import com.fajar.myproductcatalogapp.product_detail.data.data_source.remote.implementation.network.dto.ProductDetailDto
 import com.fajar.myproductcatalogapp.product_detail.data.data_source.remote.implementation.network.dto.ProductReviewDto
 import com.fajar.myproductcatalogapp.product_detail.domain.ProductDetail
 import com.fajar.myproductcatalogapp.product_detail.domain.ProductReview
-import com.fajar.myproductcatalogapp.core.domain.model.Rating
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 

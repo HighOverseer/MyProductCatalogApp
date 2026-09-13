@@ -9,7 +9,7 @@ import com.fajar.myproductcatalogapp.product_detail.domain.ProductDetailReposito
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-fun getProductDetailDIModules(): List<Module> {
+fun getProductDetailDataDIModules(): List<Module> {
     return listOf(
         module {
             single<ProductDetailRepository> {

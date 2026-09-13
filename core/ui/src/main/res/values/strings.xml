@@ -9,4 +9,5 @@
     <string name="invalid_session_please_try_again">Your session is invalid. Please try again.</string>
     <string name="no_data_found">Sorry, no data found..</string>
     <string name="off">%1$s OFF</string>
+    <string name="error">Error</string>
 </resources>

@@ -20,7 +20,8 @@ fun PrimaryButton(
     modifier: Modifier = Modifier, text: String = "",
     onClick: () -> Unit = {},
     contentPadding: PaddingValues = PaddingValues(vertical = 14.dp),
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    containerColor: Color = Green55
 ) {
 
     ElevatedButton(
@@ -30,7 +31,7 @@ fun PrimaryButton(
         onClick = onClick,
         enabled = enabled,
         colors = ButtonDefaults.elevatedButtonColors(
-            containerColor = Green55,
+            containerColor = containerColor,
             disabledContentColor = Grey70,
         ),
     ) {
