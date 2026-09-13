@@ -61,6 +61,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":product-previews:data"))
     implementation(project(":product-previews:presentation"))
+    implementation(project(":product-detail:data"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)

@@ -15,6 +15,7 @@ fun getProductPreviewsDataDIModules(): List<Module> {
             single<ProductPreviewsRepository> {
                 ProductPreviewsRepositoryImpl(get())
             }
+
             factory<ProductPreviewsRemoteDataSource> {
                 ProductPreviewsRemoteDataSourceImpl(
                     dispatcherProvider = get(),
@@ -22,9 +23,11 @@ fun getProductPreviewsDataDIModules(): List<Module> {
                     apiService = get()
                 )
             }
+
             factory<ProductPreviewsAPIService> {
                 ProductPreviewsAPIServiceImpl(get())
             }
+
             factory<MapperToDomain> { MapperToDomain() }
         }
     )

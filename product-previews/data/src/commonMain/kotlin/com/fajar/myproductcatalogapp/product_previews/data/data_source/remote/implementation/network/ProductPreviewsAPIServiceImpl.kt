@@ -5,7 +5,6 @@ import com.fajar.myproductcatalogapp.product_previews.data.data_source.remote.im
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.http.ParametersBuilder
-import io.ktor.http.appendPathSegments
 
 internal class ProductPreviewsAPIServiceImpl(
     private val httpClient: HttpClient
@@ -15,7 +14,7 @@ internal class ProductPreviewsAPIServiceImpl(
         limit: Int,
         skip: Int
     ): ListProductPreviewsDto {
-        return httpClient.get {
+        return httpClient.get(GET_RANDOM_PRODUCT_PREVIEWS_ENDPOINT) {
             url {
                 parameters.appendPaginationQueryParameters(
                     limit = limit,
@@ -30,9 +29,8 @@ internal class ProductPreviewsAPIServiceImpl(
         limit: Int,
         skip: Int
     ): ListProductPreviewsDto {
-        return httpClient.get {
+        return httpClient.get(SEARCH_PATH_ENDPOINT) {
             url {
-                appendPathSegments(SEARCH_PATH_KEY)
                 parameters.apply {
                     append(SEARCH_QUERY_PARAM_KEY, query)
                     appendPaginationQueryParameters(
@@ -64,6 +62,7 @@ internal class ProductPreviewsAPIServiceImpl(
         private const val LIMIT_QUERY_PARAM_KEY = "limit"
         private const val SKIP_QUERY_PARAM_KEY = "skip"
         private const val SEARCH_QUERY_PARAM_KEY = "q"
-        private const val SEARCH_PATH_KEY = "/products/search"
+        private const val SEARCH_PATH_ENDPOINT = "search"
+        private const val GET_RANDOM_PRODUCT_PREVIEWS_ENDPOINT = "/products"
     }
 }

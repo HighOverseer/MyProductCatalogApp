@@ -5,7 +5,8 @@ data class ProductDetail(
     val title: String,
     val description: String,
     val price: Double,
-    val overallRating: Int,
+    val discountPercentage: Double,
+    val overallRating: Double?,
     val imageUrls: List<String>,
     val reviews: List<ProductReview>
 )
