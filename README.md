@@ -7,4 +7,4 @@
 5. Integrate "Product-Detail" feature's presentation module with its business logic ✅
 6. Assemble NavGraphs of all features inside Root NavGraph (androidApp module) ✅
 7. Create Splash Screen and Add App Icon ✅
-8. Create Unit Tests for Business Logics
+8. Create Unit Tests for Business Logics of all features ⏳
