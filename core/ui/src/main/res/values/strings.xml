@@ -8,4 +8,5 @@
     <string name="sorry_the_server_seems_busy_please_try_again_later">Sorry, the server seems to be busy. Please try again later.</string>
     <string name="invalid_session_please_try_again">Your session is invalid. Please try again.</string>
     <string name="no_data_found">Sorry, no data found..</string>
+    <string name="off">%1$s OFF</string>
 </resources>

@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -108,7 +109,10 @@ internal fun ProductPreviewItemCard(
                     .padding(horizontal = 4.dp, vertical = 2.dp)
             ) {
                 Text(
-                    text = dui.displayDiscountPercentage + " OFF",
+                    text = stringResource(
+                        R.string.off,
+                        dui.displayDiscountPercentage
+                    ),
                     color = Color.White,
                     style = MaterialTheme.typography.bodySmall
                 )

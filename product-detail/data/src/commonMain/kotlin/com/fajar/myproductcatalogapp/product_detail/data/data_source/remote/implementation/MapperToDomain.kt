@@ -4,6 +4,7 @@ import com.fajar.myproductcatalogapp.product_detail.data.data_source.remote.impl
 import com.fajar.myproductcatalogapp.product_detail.data.data_source.remote.implementation.network.dto.ProductReviewDto
 import com.fajar.myproductcatalogapp.product_detail.domain.ProductDetail
 import com.fajar.myproductcatalogapp.product_detail.domain.ProductReview
+import com.fajar.myproductcatalogapp.core.domain.model.Rating
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
@@ -19,7 +20,7 @@ internal class MapperToDomain {
                 description = description ?: "-",
                 price = price ?: return null,
                 discountPercentage = discountPercentage ?: return null,
-                overallRating = overallRating,
+                overallRating = overallRating?.toRating(),
                 imageUrls = images.mapNotNull { it },
                 reviews = reviews
                     .mapNotNull { it }
@@ -33,18 +34,24 @@ internal class MapperToDomain {
         dto: ProductReviewDto
     ): ProductReview? {
         return dto.run {
-            val postedDate = date?.let { date ->
+            val postedTimestamp = date?.let { date ->
                 Instant.parseOrNull(date)
                     ?.toEpochMilliseconds()
             }
 
             ProductReview(
-                rating = rating?.toDouble() ?: return null,
+                rating = rating?.toDouble()?.toRating() ?: return null,
                 comment = comment ?: "-",
-                postedDate = postedDate ?: return null,
+                postedTimestamp = postedTimestamp ?: return null,
                 reviewerName = reviewerName ?: return null,
                 reviewerEmail = reviewerEmail ?: "-",
             )
         }
+    }
+
+    private fun Double.toRating(
+        maxScore: Double = 5.0
+    ): Rating {
+        return Rating(relativeScore = this, maxScore = maxScore)
     }
 }

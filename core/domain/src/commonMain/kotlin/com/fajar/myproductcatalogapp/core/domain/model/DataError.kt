@@ -19,5 +19,5 @@ sealed interface DataError : Error {
         }
     }
 
-    data class Unexpected(val reason: String? = null): DataError
+    data class Unexpected(val reason: String? = null) : DataError
 }
