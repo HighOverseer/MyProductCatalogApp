@@ -17,7 +17,7 @@ import com.fajar.myproductcatalogapp.core.ui.utils.shimmeringEffect
 @Composable
 internal fun ShimmeringProductDetailContent(modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .padding(bottom = 40.25.dp)
 
     ) {

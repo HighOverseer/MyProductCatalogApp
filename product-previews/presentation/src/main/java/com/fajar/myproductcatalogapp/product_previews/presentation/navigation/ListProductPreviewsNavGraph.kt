@@ -8,7 +8,6 @@ import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.productPreviewsNavGraph(
     openProductDetail: (Long) -> Unit = { },
-    onNavigateUp: () -> Unit = { },
 ) {
     navigation<ProductPreviewsNavigation.Graph>(
         startDestination = ProductPreviewsNavigation.ListRoute
@@ -17,7 +16,6 @@ fun NavGraphBuilder.productPreviewsNavGraph(
             ListProductPreviewsScreen(
                 viewModel = koinViewModel(),
                 openProductDetail = openProductDetail,
-                onNavigateUp = onNavigateUp
             )
         }
     }

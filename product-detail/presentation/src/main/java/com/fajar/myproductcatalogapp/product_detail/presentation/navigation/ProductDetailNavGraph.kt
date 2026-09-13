@@ -6,13 +6,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
+import com.fajar.myproductcatalogapp.core.ui.utils.navigateUpSafely
 import com.fajar.myproductcatalogapp.product_detail.presentation.ProductDetailScreen
 import com.fajar.myproductcatalogapp.product_detail.presentation.ProductDetailViewModel
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
 fun NavGraphBuilder.productDetailNavGraph(
-    onNavigateUp: () -> Unit = { },
     navController: NavHostController
 ) {
     navigation<ProductDetailNavigation.Graph>(
@@ -29,7 +29,7 @@ fun NavGraphBuilder.productDetailNavGraph(
 
             ProductDetailScreen(
                 viewModel = viewModel,
-                onNavigateUp = onNavigateUp
+                onNavigateUp = navController::navigateUpSafely
             )
         }
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="kembali">Kembali</string>
-    <string name="list_product_catalog">List Product Catalog</string>
+    <string name="explore_products">Explore Products</string>
     <string name="what_can_we_help_you_find">What can we help you find?</string>
     <string name="retry">Retry</string>
 </resources>

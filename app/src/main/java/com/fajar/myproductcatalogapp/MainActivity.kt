@@ -7,6 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.fajar.myproductcatalogapp.core.ui.theme.MyProductCatalogAppTheme
+import com.fajar.myproductcatalogapp.core.ui.utils.navigateSafely
+import com.fajar.myproductcatalogapp.product_detail.presentation.navigation.ProductDetailNavigation
+import com.fajar.myproductcatalogapp.product_detail.presentation.navigation.productDetailNavGraph
 import com.fajar.myproductcatalogapp.product_previews.presentation.navigation.ProductPreviewsNavigation
 import com.fajar.myproductcatalogapp.product_previews.presentation.navigation.productPreviewsNavGraph
 
@@ -22,11 +25,15 @@ class MainActivity : ComponentActivity() {
                     startDestination = ProductPreviewsNavigation.Graph
                 ) {
                     productPreviewsNavGraph(
-                        openProductDetail = {
-                            // TODO add navigation to Product Detail Graph
-                        },
-                        onNavigateUp = ::finishAndRemoveTask
+                        openProductDetail = { productId ->
+                            navController.navigateSafely(
+                                ProductDetailNavigation.Graph(
+                                    productId = productId
+                                )
+                            )
+                        }
                     )
+                    productDetailNavGraph(navController = navController)
                 }
             }
         }

@@ -8,10 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -23,17 +20,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.fajar.myproductcatalogapp.core.ui.R
 import com.fajar.myproductcatalogapp.core.ui.theme.Black10
 import com.fajar.myproductcatalogapp.core.ui.theme.MyProductCatalogAppTheme
 import com.fajar.myproductcatalogapp.product_previews.presentation.content.ListProductPreviewsMainContent
@@ -47,7 +40,6 @@ import com.fajar.myproductcatalogapp.product_previews.presentation.R as ThisR
 internal fun ListProductPreviewsScreen(
     viewModel: ListProductPreviewsViewModel = koinViewModel(),
     openProductDetail: (Long) -> Unit = { },
-    onNavigateUp: () -> Unit
 ) {
     val searchQuery by viewModel.searchBarQuery
         .collectAsStateWithLifecycle()
@@ -60,7 +52,6 @@ internal fun ListProductPreviewsScreen(
         onSearchQueryChange = viewModel::onSearchQueryChange,
         pagingItems = pagingItems,
         onItemClicked = { openProductDetail(it.id) },
-        onNavigateUp = onNavigateUp,
     )
 }
 
@@ -72,7 +63,6 @@ private fun ListProductPreviewsScreen(
     onSearchQueryChange: (String) -> Unit = { },
     pagingItems: LazyPagingItems<ProductPreviewItemDUI> = rememberDummyPagingItems(),
     onItemClicked: (ProductPreviewItemDUI) -> Unit = { },
-    onNavigateUp: () -> Unit = { },
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
@@ -102,27 +92,10 @@ private fun ListProductPreviewsScreen(
                             .fillMaxWidth()
                             .background(Color.White)
                     ) {
-                        IconButton(
-                            modifier = Modifier
-                                .padding(start = 8.dp)
-                                .align(Alignment.CenterStart),
-                            onClick = onNavigateUp
-                        ) {
-                            Icon(
-                                modifier = Modifier
-                                    .size(20.dp),
-                                imageVector = ImageVector
-                                    .vectorResource(R.drawable.ic_arrow_left),
-                                tint = Black10,
-                                contentDescription = stringResource(
-                                    ThisR.string.kembali
-                                )
-                            )
-                        }
                         Text(
                             modifier = Modifier
                                 .align(Alignment.Center),
-                            text = stringResource(ThisR.string.list_product_catalog),
+                            text = stringResource(ThisR.string.explore_products),
                             style = MaterialTheme.typography.headlineSmall,
                             color = Black10
                         )
