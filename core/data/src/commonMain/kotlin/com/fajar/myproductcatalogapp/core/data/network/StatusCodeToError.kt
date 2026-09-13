@@ -11,7 +11,7 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 
 internal expect fun getUnknownHostExceptionKClass(): Any
-val mapStatusCodeToError2 = hashMapOf<Int, DataError>(
+val mapStatusCodeToError = hashMapOf<Int, DataError>(
     HttpStatusCode.BadRequest.value to RootNetworkError.BAD_REQUEST,
     HttpStatusCode.Unauthorized.value to RootNetworkError.UNAUTHORIZED,
     HttpStatusCode.Forbidden.value to RootNetworkError.FORBIDDEN,
@@ -43,7 +43,7 @@ suspend inline fun <reified M, D> callApiFromNetwork(
 
     } catch (e: HttpException) {
         val error =
-            mapStatusCodeToError2[e.statusCode] ?: RootNetworkError.UNEXPECTED_ERROR
+            mapStatusCodeToError[e.statusCode] ?: RootNetworkError.UNEXPECTED_ERROR
         return Result.Error(error)
     } catch (e: Exception) {
         currentCoroutineContext().ensureActive()

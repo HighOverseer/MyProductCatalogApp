@@ -2,8 +2,6 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.android.lint)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.mokkery)
 }
 
 kotlin {
@@ -12,7 +10,7 @@ kotlin {
     // which platforms this KMP module supports.
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
     android {
-        namespace = "com.fajar.myproductcatalogapp.product_previews.data"
+        namespace = "com.fajar.myproductcatalogapp.core.test_utils"
         compileSdk {
             version = release(36) {
                 minorApiLevel = 1
@@ -37,7 +35,7 @@ kotlin {
     // A step-by-step guide on how to include this library in an XCode
     // project can be found here:
     // https://developer.android.com/kotlin/multiplatform/migrate
-    val xcfName = "product-previews:dataKit"
+    val xcfName = "core:test-utilsKit"
 
     iosX64 {
         binaries.framework {
@@ -67,21 +65,15 @@ kotlin {
             dependencies {
                 implementation(libs.kotlin.stdlib)
                 // Add KMP dependencies here
-                implementation(project(":core:domain"))
-                implementation(project(":core:data"))
                 implementation(project(":core:common"))
-                implementation(project(":product-previews:domain"))
-                implementation(libs.ktor.serialization.kotlinx.json)
-                implementation(libs.ktor.client.core)
-                implementation(libs.coinCore)
+                implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.kotlinx.coroutine.test)
             }
         }
 
         commonTest {
             dependencies {
                 implementation(libs.kotlin.test)
-                implementation(libs.kotlinx.coroutine.test)
-                implementation(project(":core:test-utils"))
             }
         }
 

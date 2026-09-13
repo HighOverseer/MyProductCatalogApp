@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="test-utils">
+    <output-path>$PROJECT_DIR$/core/test-utils/build/libs</output-path>
+    <root id="archive" name="test-utils.jar">
+      <element id="module-output" name="MyProductCatalogApp.core.test-utils.androidMain" />
+    </root>
+  </artifact>
+</component>
