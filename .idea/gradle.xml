@@ -15,6 +15,10 @@
             <option value="$PROJECT_DIR$/core/data" />
             <option value="$PROJECT_DIR$/core/domain" />
             <option value="$PROJECT_DIR$/core/ui" />
+            <option value="$PROJECT_DIR$/product-detail" />
+            <option value="$PROJECT_DIR$/product-detail/data" />
+            <option value="$PROJECT_DIR$/product-detail/domain" />
+            <option value="$PROJECT_DIR$/product-detail/presentation" />
             <option value="$PROJECT_DIR$/product-previews" />
             <option value="$PROJECT_DIR$/product-previews/data" />
             <option value="$PROJECT_DIR$/product-previews/domain" />
