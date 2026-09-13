@@ -4,4 +4,5 @@
     <string name="explore_products">Explore Products</string>
     <string name="what_can_we_help_you_find">What can we help you find?</string>
     <string name="retry">Retry</string>
+    <string name="please_pull_to_refresh_again">Please pull to refresh again..</string>
 </resources>

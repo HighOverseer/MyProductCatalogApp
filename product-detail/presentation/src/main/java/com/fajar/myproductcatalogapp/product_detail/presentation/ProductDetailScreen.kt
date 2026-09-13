@@ -103,8 +103,8 @@ private fun ProductDetailScreenPreview() {
     MyProductCatalogAppTheme {
         ProductDetailScreen(
             uiState = ProductDetailUIState(
-                isLoading = true,
-                //errorUserMessage = UIText.Dynamic("Something went wrong, please try again.."),
+                isLoading = false,
+                errorUserMessage = null,
                 productDetailDUI = ProductDetailDUI(
                     title = "Headset Nexus A1",
                     description = "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum  Lorem ipsum Lorem ipsum",
