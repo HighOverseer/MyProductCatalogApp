@@ -120,7 +120,16 @@ internal fun ProductDetailMainContent(
                 color = Black50
             )
 
-            Spacer(Modifier.height(24.dp))
+            Spacer(Modifier.height(16.dp))
+
+            Text(
+                stringResource(ThisR.string.reviews),
+                style = MaterialTheme.typography.titleLarge,
+                color = Black10,
+                fontSize = 18.sp
+            )
+
+            Spacer(Modifier.height(8.dp))
 
             dui.reviews.forEach { review ->
                 ProductReviewItemCard(review = review)
